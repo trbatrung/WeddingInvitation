@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>[Bride Name] &amp; [Groom Name] – Wedding [DD.MM.YYYY]</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:       #9e8a6e;
+      --gold-light: #b8a88a;
+      --gold-pale:  #e8e0d4;
+      --cream:      #f8f6f2;
+      --beige:      #efefea;
+      --charcoal:   #2a2825;
+      --warm-grey:  #8a8680;
+      --mid-grey:   #d4d0ca;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #dddad4;
+      color: var(--charcoal);
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    .page-container {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--cream);
+      box-shadow: 0 0 60px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s cubic-bezier(.4,0,.2,1), transform 0.9s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1 { transition-delay:.1s; }
+    .d2 { transition-delay:.2s; }
+    .d3 { transition-delay:.3s; }
+    .d4 { transition-delay:.4s; }
+
+    /* ══ HERO ══ */
+    #hero {
+      position: relative;
+      width: 100%; height: 100vh; min-height: 600px;
+      overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+    #hero-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 20%;
+      filter: brightness(0.82);
+      animation: heroZoom 7s ease-out forwards;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.06); opacity:0; }
+      to   { transform: scale(1);    opacity:1; }
+    }
+    #hero::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(to bottom, rgba(20,18,15,0) 0%, rgba(20,18,15,0) 25%, rgba(20,18,15,0.6) 100%);
+      pointer-events:none;
+    }
+    .hero-text {
+      position: relative; z-index: 2;
+      padding: 0 36px 56px; width: 100%;
+    }
+    .hero-label {
+      font-size: 0.56rem; letter-spacing: 0.42em;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: 16px;
+    }
+    .hero-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 9vw, 4rem);
+      color: #fff; line-height: 1.15;
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .hero-names .and-small {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: 1rem; letter-spacing: 0.2em;
+      color: var(--gold-light); margin: 4px 0; text-transform: none;
+    }
+    .hero-date {
+      font-size: 0.6rem; letter-spacing: 0.38em;
+      text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 18px;
+    }
+    .scroll-cue {
+      position: absolute; bottom: 18px; right: 36px; z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      color: rgba(255,255,255,0.4);
+      animation: nudge 2.5s ease-in-out infinite;
+    }
+    .scroll-cue span { font-size:0.48rem; letter-spacing:0.3em; text-transform:uppercase; }
+    .scroll-cue svg { width:14px; }
+    @keyframes nudge {
+      0%,100% { transform:translateY(0); }
+      55%      { transform:translateY(7px); }
+    }
+
+    /* ══ SHARED ══ */
+    .wrap { padding: 80px 44px; text-align: center; }
+    .bg-beige { background: var(--beige); }
+
+    .eyebrow {
+      display: block; font-size: 0.54rem;
+      letter-spacing: 0.44em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .big-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(2rem, 8vw, 3.8rem);
+      letter-spacing: 0.04em; color: var(--charcoal); line-height: 1;
+    }
+    .sub-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.1rem;
+      color: var(--warm-grey); margin-top: 6px;
+    }
+    .body-copy {
+      font-size: 0.82rem; line-height: 2;
+      color: var(--warm-grey); margin-top: 16px;
+    }
+    .thin-rule {
+      width: 36px; height: 1px;
+      background: var(--gold-light); margin: 28px auto;
+    }
+
+    /* ══ OPENING ══ */
+    .parents-block {
+      font-size: 0.7rem; letter-spacing: 0.08em;
+      color: var(--warm-grey); line-height: 2.2; margin-top: 16px;
+    }
+    .parents-block strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 400; color: var(--charcoal);
+    }
+    .couple-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(1.8rem, 7vw, 2.8rem);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--charcoal); line-height: 1.3;
+    }
+
+    /* ══ SCHEDULE ══ */
+    .ev-stack { margin-top: 52px; }
+    .ev-item {
+      padding: 36px 0; border-top: 1px solid var(--mid-grey); text-align: center;
+    }
+    .ev-item:last-child { border-bottom: 1px solid var(--mid-grey); }
+    .ev-label {
+      font-size: 0.54rem; letter-spacing: 0.38em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+    }
+    .ev-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--charcoal);
+    }
+    .ev-name-vi {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 0.95rem;
+      color: var(--warm-grey); margin-top: 4px;
+    }
+    .ev-times {
+      display: flex; justify-content: center;
+      flex-wrap: wrap; margin: 22px 0 18px;
+    }
+    .ev-time-item {
+      padding: 0 22px; position: relative; text-align: center;
+    }
+    .ev-time-item + .ev-time-item::before {
+      content:''; position:absolute; left:0; top:50%;
+      transform:translateY(-50%); width:1px; height:22px; background: var(--mid-grey);
+    }
+    .ev-time-item .t {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 400;
+      color: var(--charcoal); display: block;
+    }
+    .ev-time-item .tl {
+      font-size: 0.66rem; color: var(--warm-grey);
+      letter-spacing: 0.06em; display: block; margin-top: 2px;
+    }
+    .ev-time-item .tl em {
+      font-style: italic; font-size: 0.6rem;
+      color: var(--mid-grey); display: block;
+    }
+    .venue-wrap { margin-top: 22px; }
+    .vname {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--charcoal);
+    }
+    .vaddr { font-size: 0.7rem; color: var(--warm-grey); line-height:1.8; margin-top:4px; }
+    .vmap {
+      display: inline-flex; align-items: center; gap:5px; margin-top:10px;
+      font-size: 0.56rem; letter-spacing:0.22em; text-transform:uppercase;
+      color: var(--gold); text-decoration:none;
+      border-bottom:1px solid var(--gold-pale); padding-bottom:2px;
+      transition: border-color .2s;
+    }
+    .vmap:hover { border-color: var(--gold); }
+
+    /* ══ DRESS CODE ══ */
+    .swatches { display:flex; justify-content:center; gap:20px; margin-top:28px; }
+    .sw-dot {
+      width:44px; height:44px; border-radius:50%;
+      border:1px solid rgba(0,0,0,0.07);
+      box-shadow:0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    /* ══ RSVP FORM ══ */
+    .rsvp-form { margin-top: 44px; text-align: left; }
+    .rf-group { margin-bottom: 32px; }
+    .rf-label {
+      display: block; font-size: 0.6rem;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--charcoal); margin-bottom: 10px;
+    }
+    .rf-req { color: var(--gold); }
+    .rf-input {
+      width: 100%; background: transparent; border: none;
+      border-bottom: 1px solid var(--mid-grey);
+      padding: 10px 0; font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: var(--charcoal); outline: none;
+      transition: border-color .2s;
+    }
+    .rf-input:focus { border-bottom-color: var(--gold); }
+    .rf-input::placeholder { color: var(--mid-grey); font-style: italic; }
+    .rf-hint { font-size: 0.58rem; color: var(--warm-grey); font-style: italic; margin-top: 6px; }
+    .rf-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      background: transparent; border: 1px solid var(--mid-grey);
+      padding: 8px 18px; font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.62rem; letter-spacing: 0.12em;
+      color: var(--warm-grey); cursor: pointer; transition: all .2s;
+    }
+    .pill:hover { border-color: var(--gold-light); color: var(--charcoal); }
+    .pill.active { background: var(--gold-light); border-color: var(--gold-light); color: var(--charcoal); }
+    .rf-stepper { display: flex; align-items: center; gap: 20px; }
+    .step-btn {
+      width: 36px; height: 36px; border: 1px solid var(--mid-grey);
+      background: transparent; font-size: 1.2rem; color: var(--warm-grey);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .step-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .step-val {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.6rem;
+      color: var(--charcoal); min-width: 24px; text-align: center;
+    }
+    .rf-date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .rf-date-label { font-size: 0.58rem; letter-spacing: 0.1em; color: var(--warm-grey); margin-bottom: 6px; }
+    input[type="date"].rf-input { cursor: pointer; }
+    .rf-submit {
+      width: 100%; padding: 16px; background: var(--charcoal);
+      color: var(--gold-light); border: none;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      cursor: pointer; transition: background .2s; margin-top: 8px;
+    }
+    .rf-submit:hover { background: var(--gold); color: var(--charcoal); }
+    .rf-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .rf-status {
+      text-align: center; font-size: 0.7rem; font-style: italic;
+      color: var(--warm-grey); margin-top: 14px; min-height: 20px;
+    }
+    .rf-status.success { color: #7a9e7e; }
+    .rf-status.error   { color: #c0756a; }
+
+    /* ══ THANK YOU ══ */
+    .thankyou-wrap { padding:100px 44px; text-align:center; }
+    .thankyou-title {
+      font-family:'Cormorant Garamond',serif; font-weight:300;
+      font-size: clamp(2.2rem, 9vw, 3.8rem);
+      letter-spacing:0.22em; text-transform:uppercase; color:var(--charcoal);
+    }
+    .thankyou-sub {
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size:1rem; color:var(--warm-grey); margin-top:16px; line-height:2;
+    }
+
+    /* ══ FOOTER ══ */
+    footer { background:var(--charcoal); text-align:center; padding:48px 24px 32px; }
+    .f-names {
+      font-family:'Cormorant Garamond',serif; font-weight:300;
+      font-size:1.9rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-light);
+    }
+    .f-date {
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size:0.9rem; color:rgba(212,185,106,0.7); margin-top:8px;
+    }
+    .f-sub {
+      font-size:0.54rem; letter-spacing:0.28em; text-transform:uppercase;
+      color:rgba(255,255,255,0.2); margin-top:8px;
+    }
+  </style>
+</head>
+<body>
+<div class="page-container">
+
+<!-- ══ HERO ══ -->
+<!-- 📸 Replace [HERO_IMAGE.jpg] with your photo filename uploaded to GitHub -->
+<section id="hero">
+  <img id="hero-img" src="[HERO_IMAGE.jpg]" alt="[Bride Name] &amp; [Groom Name]"/>
+  <div class="hero-text">
+    <p class="hero-label reveal">Wedding Invitation · Thiệp Mời</p>
+    <h1 class="hero-names reveal d1">
+      [Bride Name]
+      <span class="and-small">and</span>
+      [Groom Name]
+    </h1>
+    <p class="hero-date reveal d2">[DD] · [Month] · [YYYY] &nbsp;·&nbsp; [City]</p>
+  </div>
+  <div class="scroll-cue">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ══ OPENING ══ -->
+<div class="wrap">
+  <span class="eyebrow reveal">Trân trọng kính mời</span>
+  <p class="parents-block reveal d1">
+    Nhà Gái · Bride's Family<br>
+    <strong>[Bride's Father Name]</strong> &amp; <strong>[Bride's Mother Name]</strong>
+  </p>
+  <p class="parents-block reveal d2">
+    Nhà Trai · Groom's Family<br>
+    <strong>[Groom's Father Name]</strong> &amp; <strong>[Groom's Mother Name]</strong>
+  </p>
+  <div class="thin-rule reveal d2"></div>
+  <p class="body-copy reveal d2" style="font-size:0.7rem;">Chúng tôi trân trọng kính mời Quý khách đến dự Lễ Cưới</p>
+  <p class="couple-name reveal d3">
+    [Bride Name]<br>
+    <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;font-weight:300;letter-spacing:0.2em;text-transform:none;">&amp;</span><br>
+    [Groom Name]
+  </p>
+  <div class="thin-rule reveal d3"></div>
+  <p class="body-copy reveal d3">
+    <span style="font-size:0.7rem;font-style:italic;">Sự hiện diện của Quý khách là niềm vinh dự của chúng tôi.</span><br>
+    <em>Your presence is our greatest honour.</em>
+  </p>
+</div>
+
+<!-- ══ SCHEDULE ══ -->
+<div class="bg-beige">
+  <div class="wrap">
+    <span class="eyebrow reveal">Lịch trình · Schedule</span>
+    <div class="big-date reveal d1">[DD MON YYYY]</div>
+    <p class="sub-heading reveal d1">[Day of Week] · [English Day]</p>
+    <p style="font-size:0.64rem;color:var(--warm-grey);letter-spacing:0.14em;margin-top:6px;" class="reveal d2">[Lunar date]</p>
+
+    <div class="ev-stack">
+
+      <!-- EVENT 1 — e.g. Lễ Vu Quy -->
+      <div class="ev-item reveal d1">
+        <p class="ev-label">[Label · Label EN]</p>
+        <p class="ev-name">[Event Name]</p>
+        <p class="ev-name-vi">[Event Name English]</p>
+        <div class="ev-times">
+          <div class="ev-time-item">
+            <span class="t">[HH:MM]</span>
+            <span class="tl">[Đón khách]<em>[Welcome]</em></span>
+          </div>
+          <div class="ev-time-item">
+            <span class="t">[HH:MM]</span>
+            <span class="tl">[Làm lễ]<em>[Ceremony]</em></span>
+          </div>
+          <div class="ev-time-item">
+            <span class="t">[HH:MM]</span>
+            <span class="tl">[Khai tiệc]<em>[Reception]</em></span>
+          </div>
+        </div>
+        <div class="venue-wrap">
+          <p class="vname">[Venue Name]</p>
+          <p class="vaddr">[Vietnamese Address]<br><em>[English Address]</em></p>
+          <a class="vmap" href="https://maps.google.com/?q=[Venue+Name]" target="_blank">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            Xem bản đồ · View Map
+          </a>
+        </div>
+      </div>
+
+      <!-- EVENT 2 — e.g. Lễ Thành Hôn -->
+      <div class="ev-item reveal d2">
+        <p class="ev-label">[Label · Label EN]</p>
+        <p class="ev-name" style="font-size:clamp(1.8rem,6vw,2.6rem);">[Event Name]</p>
+        <p class="ev-name-vi" style="font-size:1.05rem;">[Event Name English]</p>
+        <div class="ev-times">
+          <div class="ev-time-item">
+            <span class="t">[HH:MM]</span>
+            <span class="tl">[Đón khách]<em>[Welcome]</em></span>
+          </div>
+          <div class="ev-time-item">
+            <span class="t">[HH:MM]</span>
+            <span class="tl">[Lễ chính]<em>[until HH:MM]</em></span>
+          </div>
+        </div>
+        <div class="venue-wrap">
+          <p class="vname">[Venue Name]</p>
+          <p class="vaddr">[Vietnamese Address]<br><em>[English Address]</em></p>
+          <a class="vmap" href="https://maps.google.com/?q=[Venue+Name]" target="_blank">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            Xem bản đồ · View Map
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ DRESS CODE ══ -->
+<div class="wrap">
+  <span class="eyebrow reveal">Trang phục · Dress Code</span>
+  <p class="body-copy reveal d1">
+    Quý khách vui lòng mặc trang phục tông màu [Colour 1], [Colour 2], [Colour 3].<br>
+    <em>Please dress in [Colour 1], [Colour 2], [Colour 3].</em>
+  </p>
+  <!-- 🎨 Replace background colours below with your dress code colours -->
+  <div class="swatches reveal d2">
+    <div class="sw-dot" style="background:#e8a4b8;"></div>
+    <div class="sw-dot" style="background:#a8c4d8;"></div>
+    <div class="sw-dot" style="background:#1e2d4a;"></div>
+    <div class="sw-dot" style="background:#8e7aaa;"></div>
+    <div class="sw-dot" style="background:#2a2825;"></div>
+  </div>
+  <p class="body-copy reveal d3" style="font-size:0.68rem;font-style:italic;margin-top:14px;">
+    Vui lòng tránh màu trắng · Please avoid white attire.
+  </p>
+</div>
+
+<!-- ══ RSVP ══ -->
+<div class="bg-beige">
+  <div class="wrap">
+    <span class="eyebrow reveal">Xác nhận tham dự · RSVP</span>
+    <div class="big-date reveal d1" style="font-size:clamp(2rem,7vw,3rem);letter-spacing:0.12em;">RSVP</div>
+    <p class="sub-heading reveal d1">Vui lòng xác nhận trước [DD/MM/YYYY]</p>
+    <p class="body-copy reveal d2" style="font-size:0.7rem;">Please confirm your attendance by [Date in English]</p>
+
+    <div class="rsvp-form reveal d2">
+
+      <div class="rf-group">
+        <label class="rf-label">Họ và tên · Full Name <span class="rf-req">*</span></label>
+        <input class="rf-input" type="text" id="rf-name" placeholder="Nguyễn Văn A" required/>
+      </div>
+
+      <div class="rf-group">
+        <label class="rf-label">Tham dự · Attendance <span class="rf-req">*</span></label>
+        <div class="rf-pills" id="rf-attending">
+          <button type="button" class="pill" data-val="Có tham dự · Attending">✓ &nbsp;Có tham dự · Attending</button>
+          <button type="button" class="pill" data-val="Không tham dự · Not Attending">✗ &nbsp;Không tham dự · Not Attending</button>
+        </div>
+      </div>
+
+      <div class="rf-group" id="rf-which-wrap">
+        <label class="rf-label">Tham dự phần nào · Which part <span class="rf-req">*</span></label>
+        <div class="rf-pills" id="rf-which">
+          <button type="button" class="pill" data-val="Lễ Vu Quy">[Event 1]</button>
+          <button type="button" class="pill" data-val="Lễ Thành Hôn">[Event 2]</button>
+          <button type="button" class="pill" data-val="Cả hai · Both">Cả hai · Both</button>
+        </div>
+      </div>
+
+      <div class="rf-group">
+        <label class="rf-label">Số người đi kèm · Number of guests</label>
+        <div class="rf-stepper">
+          <button type="button" class="step-btn" id="step-minus">−</button>
+          <span class="step-val" id="step-val">0</span>
+          <button type="button" class="step-btn" id="step-plus">+</button>
+        </div>
+        <p class="rf-hint">Không tính bản thân · Not including yourself</p>
+      </div>
+
+      <div class="rf-group">
+        <label class="rf-label">Chế độ ăn · Dietary</label>
+        <div class="rf-pills" id="rf-diet">
+          <button type="button" class="pill" data-val="Không · Regular">Không · Regular</button>
+          <button type="button" class="pill" data-val="Ăn chay · Vegetarian">🌿 Ăn chay · Vegetarian</button>
+        </div>
+      </div>
+
+      <div class="rf-group">
+        <label class="rf-label">Lưu trú tại khách sạn? · Staying at the hotel?</label>
+        <div class="rf-pills" id="rf-hotel">
+          <button type="button" class="pill" data-val="Có · Yes">Có · Yes</button>
+          <button type="button" class="pill" data-val="Không · No">Không · No</button>
+        </div>
+      </div>
+
+      <div class="rf-group" id="rf-room-wrap" style="display:none;">
+        <label class="rf-label">Phòng / Tầng · Room / Floor</label>
+        <div class="rf-date-row">
+          <div class="rf-date-col">
+            <p class="rf-date-label">Số phòng · Room Number</p>
+            <input class="rf-input" type="number" id="rf-room" placeholder="e.g. 502" min="1"/>
+          </div>
+          <div class="rf-date-col">
+            <p class="rf-date-label">Tầng · Floor</p>
+            <input class="rf-input" type="number" id="rf-floor" placeholder="e.g. 5" min="1"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="rf-group" id="rf-dates-wrap" style="display:none;">
+        <label class="rf-label">Ngày lưu trú · Stay Dates</label>
+        <div class="rf-date-row">
+          <div class="rf-date-col">
+            <p class="rf-date-label">Nhận phòng · Check-in</p>
+            <input class="rf-input" type="date" id="rf-checkin"/>
+          </div>
+          <div class="rf-date-col">
+            <p class="rf-date-label">Trả phòng · Check-out</p>
+            <input class="rf-input" type="date" id="rf-checkout"/>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="rf-submit" id="rf-submit-btn">
+        Xác nhận · Submit RSVP
+      </button>
+      <p class="rf-status" id="rf-status"></p>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ THANK YOU ══ -->
+<div class="thankyou-wrap">
+  <p class="thankyou-title reveal">Thank You</p>
+  <p class="sub-heading reveal d1">Cảm ơn Quý khách</p>
+  <div style="width:30px;height:1px;background:var(--gold-light);margin:24px auto;" class="reveal d1"></div>
+  <p class="thankyou-sub reveal d2">
+    Sự hiện diện của Quý khách<br>là món quà quý giá nhất với chúng tôi.<br><br>
+    <em>Your presence on our special day<br>is the greatest gift of all.</em>
+  </p>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p class="f-names reveal">[Bride] &amp; [Groom]</p>
+  <p class="f-date reveal d1">[DD] · [Month] · [YYYY]</p>
+  <p class="f-sub reveal d2">[Venue Name] · [City]</p>
+  <p style="margin-top:20px;font-size:.5rem;opacity:.15;letter-spacing:.15em;color:#fff;">Made with ♡</p>
+</footer>
+
+</div>
+
+<script>
+  // ── SCROLL REVEAL ──
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+  window.addEventListener('load', () => {
+    document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+  });
+
+  // ── RSVP FORM ──
+  // 🔗 Replace with your Google Apps Script URL
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAnR52fB3yNWG6w4DpdnG5tuL8Us1M7X9Oc90EFNCbbMYqfF9Jr6MOicNA9mWAtof6/exec';
+
+  document.querySelectorAll('.rf-pills').forEach(group => {
+    group.querySelectorAll('.pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (group.id === 'rf-hotel') {
+          const staying = btn.dataset.val === 'Có · Yes';
+          document.getElementById('rf-room-wrap').style.display  = staying ? 'block' : 'none';
+          document.getElementById('rf-dates-wrap').style.display = staying ? 'block' : 'none';
+        }
+        if (group.id === 'rf-attending') {
+          const attending = btn.dataset.val.startsWith('Có');
+          document.getElementById('rf-which-wrap').style.display = attending ? 'block' : 'none';
+        }
+      });
+    });
+  });
+
+  let guestCount = 0;
+  document.getElementById('step-minus').addEventListener('click', () => {
+    if (guestCount > 0) { guestCount--; document.getElementById('step-val').textContent = guestCount; }
+  });
+  document.getElementById('step-plus').addEventListener('click', () => {
+    guestCount++;
+    document.getElementById('step-val').textContent = guestCount;
+  });
+
+  document.getElementById('rf-submit-btn').addEventListener('click', async () => {
+    const name      = document.getElementById('rf-name').value.trim();
+    const attending = document.querySelector('#rf-attending .pill.active')?.dataset.val || '';
+    const which     = document.querySelector('#rf-which .pill.active')?.dataset.val   || '';
+    const diet      = document.querySelector('#rf-diet .pill.active')?.dataset.val    || '';
+    const hotel     = document.querySelector('#rf-hotel .pill.active')?.dataset.val   || '';
+    const room      = document.getElementById('rf-room').value.trim();
+    const floor     = document.getElementById('rf-floor').value.trim();
+    const roomInfo  = room || floor ? `Room ${room} / Floor ${floor}` : '';
+    const checkin   = document.getElementById('rf-checkin').value;
+    const checkout  = document.getElementById('rf-checkout').value;
+    const status    = document.getElementById('rf-status');
+    const btn       = document.getElementById('rf-submit-btn');
+
+    if (!name)      { status.textContent = 'Vui lòng nhập họ tên · Please enter your name.'; status.className = 'rf-status error'; return; }
+    if (!attending) { status.textContent = 'Vui lòng chọn tham dự · Please select attendance.'; status.className = 'rf-status error'; return; }
+
+    btn.disabled = true;
+    status.textContent = 'Đang gửi · Sending...';
+    status.className = 'rf-status';
+
+    const params = new URLSearchParams({
+      name, attending, which,
+      guests: guestCount,
+      diet, hotel, room: roomInfo, checkin, checkout,
+      timestamp: new Date().toISOString()
+    });
+
+    try {
+      await fetch(SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+      status.textContent = '✓ Đã gửi thành công! Cảm ơn Quý khách · Submitted successfully! Thank you.';
+      status.className = 'rf-status success';
+      btn.textContent = 'Đã xác nhận · Confirmed ✓';
+    } catch (e) {
+      status.textContent = 'Có lỗi xảy ra · Something went wrong. Please try again.';
+      status.className = 'rf-status error';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
